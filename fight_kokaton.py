@@ -136,10 +136,10 @@ class Beam:
             self.rct.move_ip(self.vx, self.vy)
             screen.blit(self.img, self.rct)
 
-class Score:  #スコア表示
+class Score:  # スコア表示
     def __init__(self):
         self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
-        self.score = 0  #スコアの初期値を設定
+        self.score = 0  # スコアの初期値を設定
         self.img = self.fonto.render("表示させる文字列", 0, (0, 0, 255))
         
     def update(self, screen: pg.Surface):
