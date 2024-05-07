@@ -1,3 +1,4 @@
+import math
 import os
 import random
 import sys
@@ -56,6 +57,7 @@ class Bird:
         self.img = __class__.imgs[(+5, 0)]
         self.rct: pg.Rect = self.img.get_rect()
         self.rct.center = xy
+        self.dire(+5, 0)
 
     def change_img(self, num: int, screen: pg.Surface):
         """
@@ -81,7 +83,8 @@ class Bird:
         if check_bound(self.rct) != (True, True):
             self.rct.move_ip(-sum_mv[0], -sum_mv[1])
         if not (sum_mv[0] == 0 and sum_mv[1] == 0):
-            self.img = __class__.imgs[tuple(sum_mv)]
+            self.dire = tuple(sum_mv)
+            self.img = __class__.imgs[tuple(self.dire)]
         screen.blit(self.img, self.rct)
 
 
@@ -126,6 +129,9 @@ class Beam:
         self.rct.left = bird.rct.right  # ビームの左座標にこうかとんの右座標を設定する
         self.rct.centery = bird.rct.centery
         self.vx, self.vy = +5, 0  # 横方向速度，縦方向速度
+        self.vx, self.vy = bird.dire
+        rad = math.atan2(-self.vy, self.vx)
+        deg = math.degree(rad)
 
     def update(self, screen: pg.Surface):
         """
@@ -147,10 +153,9 @@ class Score:  #スコア表示
         screen.blit(self.txt,[100, 50])  #スクリーンにblit
 
 
-
-
-#class Explosion:
-    #def __init__(self):
+class Explosion:
+    def __init__(self):
+        
 
 
 def main():
